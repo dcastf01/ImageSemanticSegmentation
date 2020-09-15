@@ -13,9 +13,7 @@ def get_mask_for_valid_labels(y_true, num_classes, ignore_value=255):
     mask_for_not_ignored = y_true != ignore_value
     mask = mask_for_class_elements & mask_for_not_ignored
 
-
     return mask
-
 
 def prepare_data_for_segmentation_loss(y_true, y_pred, num_classes=10, ignore_value=255):
     """

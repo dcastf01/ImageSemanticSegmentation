@@ -2,7 +2,7 @@ import tensorflow as tf
 from .prepare_data_for_loss_and_metrics import prepare_data_for_segmentation_loss
 
 class SegmentationAccuracy(tf.keras.metrics.Accuracy):
-    def __init__(self, name='acc',ignore_value=CITYSCAPES_IGNORE_VALUE, **kwargs):
+    def __init__(self, name='acc',ignore_value=None, **kwargs):
       super(SegmentationAccuracy, self).__init__(name=name, **kwargs)
       self.ignore_value = ignore_value
 

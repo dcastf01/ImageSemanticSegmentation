@@ -2,7 +2,7 @@ import tensorflow as tf
 from .prepare_data_for_loss_and_metrics import prepare_data_for_segmentation_loss
 
 class SegmentationMeanIoU(tf.keras.metrics.MeanIoU):
-    def __init__(self, num_classes,ignore_value=CITYSCAPES_IGNORE_VALUE,name='mIoU', **kwargs):
+    def __init__(self, num_classes,ignore_value=None,name='mIoU', **kwargs):
       super(SegmentationMeanIoU, self).__init__(num_classes=num_classes,name=name, **kwargs)
       self.num_classes=num_classes   
       self.ignore_value = ignore_value 
