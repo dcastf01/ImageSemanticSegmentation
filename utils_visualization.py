@@ -1,3 +1,4 @@
+import matplotlib.pyplot as plt
 
 def display(display_list):
   plt.figure(figsize=(15, 15))
