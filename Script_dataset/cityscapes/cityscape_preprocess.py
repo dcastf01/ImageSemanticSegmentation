@@ -37,14 +37,11 @@ def get_cityscapes_file_pairs(split='train', city='*', sequence='*',
     assert(len(input_files) == len(gt_files))
     return sorted(input_files), sorted(gt_files)
 
-def cityscapes_input_fn(split='train', root_folder=CITYSCAPES_FOLDER, resize_to=[256, 256],
-                        shuffle=False,
-                        seed=None,):
+def cityscapes_input_fn(split='train', root_folder=CITYSCAPES_FOLDER, shuffle=False,seed=None,):
   """
     Set up an input data pipeline for semantic segmentation applications on Cityscapes dataset.
     :param split:           Split name ('train', 'val', 'test')
     :param root_folder:     Cityscapes root folder
-    :param resize_to:       H x W Dimensions to resize the image and label to
     :param shuffle:         Flag to shuffle the dataset
 
     :param seed:            (opt) Seed
@@ -54,10 +51,9 @@ def cityscapes_input_fn(split='train', root_folder=CITYSCAPES_FOLDER, resize_to=
  
   input_files, gt_files = get_cityscapes_file_pairs(split=split, root_folder=root_folder)
   return segmentation_input_fn(input_files, gt_files,
-                                 resize_to, shuffle, seed)
+                                  shuffle, seed)
   
-def segmentation_input_fn(image_files, gt_files=None,
-                        shuffle=False, seed=None):
+def segmentation_input_fn(image_files, gt_files=None,shuffle=False, seed=None):
   """
   Set up an input data pipeline for semantic segmentation applications.
   :param image_files:     List of input image files
@@ -78,7 +74,7 @@ def segmentation_input_fn(image_files, gt_files=None,
       dataset = dataset.shuffle(buffer_size=1000, seed=seed)
   dataset = dataset.prefetch(1)
 
-  # Batching + adding parsing operation:
+  # adding parsing operation:
   parse_fn = functools.partial(parse_function,)
   dataset = dataset.map(parse_fn, num_parallel_calls=4)
   
@@ -88,8 +84,6 @@ def parse_function(filenames):
     """
     Parse files into input/label image pair.
     :param filenames:   Dict containing the file(s) (filenames['image'], filenames['label'])
-    :param resize_to:   H x W Dimensions to resize the image and label to
-    :param augment:     Flag to augment the pair
     :return:            Input tensor, Label tensor
     """
     
