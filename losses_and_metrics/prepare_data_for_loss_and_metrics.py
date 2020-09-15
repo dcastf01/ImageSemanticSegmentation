@@ -24,8 +24,7 @@ def prepare_data_for_segmentation_loss(y_true, y_pred, num_classes=10, ignore_va
     :param ignore_value:  trainID value of ignored classes (`None` if ignored none) 
     :return:              Tensors edited, ready for the loss computation
     """
-    print('y_true',y_true.shape)
-    print('y_pred',y_pred.shape)
+   
         
 
     with tf.name_scope('prepare_data_for_loss'):
@@ -35,9 +34,7 @@ def prepare_data_for_segmentation_loss(y_true, y_pred, num_classes=10, ignore_va
         else:
             y_pred = tf.reshape(y_pred, [-1])
         y_true = tf.reshape(tf.cast(y_true, tf.int32), [-1])
-        print('y_true',y_true.shape)
-        print('y_pred',y_pred.shape)
-        
+       
         if ignore_value is not None:
             # To compare only on the considered class, we remove all the elements in the images
             # belonging to the ignored ones.
@@ -48,7 +45,6 @@ def prepare_data_for_segmentation_loss(y_true, y_pred, num_classes=10, ignore_va
             # Then we use this mask to remove all pixels/elements not belonging to valid classes:
             y_true = tf.boolean_mask(y_true, mask_for_valid_labels, axis=0, name='gt_valid')
             y_pred = tf.boolean_mask(y_pred, mask_for_valid_labels, axis=0, name='pred_valid')
-        print('y_true',y_true.shape)
-        print('y_pred',y_pred.shape)
+       
         
     return y_true, y_pred
