@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
+import tensorflow as tf
 def display(display_list):
   plt.figure(figsize=(15, 15))
 
