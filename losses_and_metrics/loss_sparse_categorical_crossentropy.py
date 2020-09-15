@@ -2,7 +2,7 @@ import tensorflow as tf
 from .prepare_data_for_loss_and_metrics import prepare_data_for_segmentation_loss
 
 class SegmentationLoss(tf.losses.SparseCategoricalCrossentropy):
-  def __init__(self, ignore_value=CITYSCAPES_IGNORE_VALUE, 
+  def __init__(self, ignore_value=None, 
                from_logits=False, reduction=tf.losses.Reduction.SUM_OVER_BATCH_SIZE, name='loss'):
       super().__init__(from_logits=from_logits, reduction=reduction, name=name)
       self.ignore_value = ignore_value

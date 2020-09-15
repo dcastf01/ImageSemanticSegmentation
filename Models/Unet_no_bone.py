@@ -152,8 +152,8 @@ def unet_model( IMAGE_SIZE,INPUT_CHANNELS=3,out_channels,
 
     inputs = Input(shape=(*IMAGE_SIZE, INPUT_CHANNELS), name='input')
     outputs = unet(inputs, out_channels=out_channels, 
-                    layer_depth=LAYERS_DEPTH, filters_orig=FILTERS_ORIG, 
-                    kernel_size=KERNEL_SIZE, batch_norm=USE_BATCH_NORM,
+                    layer_depth=layer_depth, filters_orig=filters_orig, 
+                    kernel_size=kernel_size, batch_norm=batch_norm,
                     final_activation="softmax" # we define our U-Net to output logits.
                     )
 
