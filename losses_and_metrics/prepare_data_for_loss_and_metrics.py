@@ -24,6 +24,9 @@ def prepare_data_for_segmentation_loss(y_true, y_pred, num_classes=10, ignore_va
     :param ignore_value:  trainID value of ignored classes (`None` if ignored none) 
     :return:              Tensors edited, ready for the loss computation
     """
+    print('y_true',y_true.shape)
+    print('y_pred',y_pred.shape)
+        
 
     with tf.name_scope('prepare_data_for_loss'):
         # Flattening the tensors to simplify the following operations:
