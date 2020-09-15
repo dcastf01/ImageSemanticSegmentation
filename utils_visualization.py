@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import tensorflow as tf
-def display(display_list):
+def display(display_list,NUM_CLASSES=256):
   plt.figure(figsize=(15, 15))
 
   title = ['Input Image', 'True Mask', 'Predicted Mask']
