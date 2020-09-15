@@ -1,4 +1,5 @@
 import tensorflow as tf
+from .prepare_data_for_loss_and_metrics import prepare_data_for_segmentation_loss
 
 class SegmentationLoss(tf.losses.SparseCategoricalCrossentropy):
   def __init__(self, ignore_value=CITYSCAPES_IGNORE_VALUE, 
