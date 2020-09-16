@@ -28,7 +28,7 @@ def calculate_class_weights_log(dataset,CLASSES_NAMES,STEPS_PER_EPOCH):
         CLASSES_NAMES, 
         class_proportions.numpy(), class_weights.numpy(), class_weights_log.numpy()):
         print('{0:13} {4}{1:5.2f}%{6}  →  {5}{2:7.2f}{3:9.2f}{6}'.format(
-            label.name, prop * 100, weight, weight_log,
+            label, prop * 100, weight, weight_log,
             log_begin_red, log_begin_green, log_end_format))
 
     return class_weights_log
