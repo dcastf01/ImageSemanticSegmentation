@@ -1,4 +1,5 @@
 import tensorflow as tf 
+import numpy as np
 from ..utils_visualization import display
 
 #pendiente de introducir correctamente
@@ -8,21 +9,19 @@ def create_mask(pred_mask):
   
   pred_mask = pred_mask[..., tf.newaxis]
   return pred_mask[0]
-def show_predictions(dataset=None, num=1):
+def show_predictions(model,dataset=None,NUM_CLASSES=256, num=1):
   if dataset:
     for image, mask in dataset.take(num):
       pred_mask = model.predict(image)
   
-      unique, counts = np.unique(tf.math.round(create_mask(pred_mask)), return_counts=True)
-      print("pred_mask",dict(zip(unique, counts)))
-      unique, counts = np.unique(tf.math.round(mask[0]), return_counts=True)
-      print("mask",dict(zip(unique, counts)))
+      # unique, counts = np.unique(tf.math.round(create_mask(pred_mask)), return_counts=True)
+      # print("pred_mask",dict(zip(unique, counts)))
+      # unique, counts = np.unique(tf.math.round(mask[0]), return_counts=True)
+      # print("mask",dict(zip(unique, counts)))
       
       display([image[0], mask[0], create_mask(pred_mask)])
   else:
-    display([sample_image, sample_mask,
-             create_mask(model.predict(sample_image[tf.newaxis, ...]))]
-    )
+    print("please give a dataset to can show")
 
 
 class DisplayCallback(tf.keras.callbacks.Callback):
