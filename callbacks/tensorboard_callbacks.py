@@ -87,26 +87,26 @@ def callback_confusion_matrix(NUM_CLASSES,CLASSES_NAMES,VALIDATION_STEPS ,val_da
 
     #     return mask
     
-    def flatten_image(image):
-        return tf.reshape(image,shape=image.shape[0]*image.shape[1])
+        def flatten_image(image):
+            return tf.reshape(image,shape=image.shape[0]*image.shape[1])
 
     for batch_image,batch_mask in val_dataset.take(VALIDATION_STEPS):
         batch_pred_mask = model.predict(batch_image)
         # display([batch_image[0],batch_mask[0],batch_pred_mask[0]])
         for pred_mask,mask in zip(batch_pred_mask,batch_mask):
     
-        pred_mask = tf.argmax(pred_mask, axis=-1)
-        pred_mask = pred_mask[..., tf.newaxis]
+            pred_mask = tf.argmax(pred_mask, axis=-1)
+            pred_mask = pred_mask[..., tf.newaxis]
+            
+            # unique, counts = np.unique(tf.math.round(pred_mask), return_counts=True)
+            # print("pred_mask",dict(zip(unique, counts)))
+            
+            mask=tf.math.round(mask)
+            unique, counts = np.unique(mask, return_counts=True)
+            pred_mask=flatten_image(pred_mask)
+            mask=flatten_image(mask)
+            cm=tf.math.confusion_matrix(mask,pred_mask,NUM_CLASSES)
         
-        # unique, counts = np.unique(tf.math.round(pred_mask), return_counts=True)
-        # print("pred_mask",dict(zip(unique, counts)))
-        
-        mask=tf.math.round(mask)
-        unique, counts = np.unique(mask, return_counts=True)
-        pred_mask=flatten_image(pred_mask)
-        mask=flatten_image(mask)
-        cm=tf.math.confusion_matrix(mask,pred_mask,NUM_CLASSES)
-    
         
     
     figure = plot_confusion_matrix(cm.numpy(), class_names=CLASSES_NAMES)
