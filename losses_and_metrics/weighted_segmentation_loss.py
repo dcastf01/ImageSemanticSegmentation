@@ -9,7 +9,7 @@ def calculate_class_weights_log(dataset,CLASSES_NAMES,STEPS_PER_EPOCH):
     all_pixels_per_class = tf.convert_to_tensor([0] * num_classes)
 
     for img, mask in dataset.take(STEPS_PER_EPOCH): # Iterating over full validation setÇ
-        mask=tf.cast(mask,tf.int32)
+        mask=tf.cast(tf.math.round(mask),dtype=tf.int32)
         one_hot_labels = tf.cast(tf.one_hot(tf.squeeze(mask, -1), num_classes), tf.int32)
         num_pixels_per_class = tf.reduce_sum(one_hot_labels, axis=[0, 1, 2])
         all_pixels_per_class += num_pixels_per_class
