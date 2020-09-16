@@ -2,10 +2,9 @@ import tensorflow as tf
 from tensorflow_examples.models.pix2pix import pix2pix
 
 
-
-
-def unet_model(output_channels):
-  base_model = tf.keras.applications.MobileNetV2(input_shape=[128, 128, 3], include_top=False)
+def unet_model(output_channels,input_shape=[128, 128, 3]):
+  
+  base_model = tf.keras.applications.MobileNetV2(input_shape=input_shape, include_top=False)
 
   # Use the activations of these layers
   layer_names = [
