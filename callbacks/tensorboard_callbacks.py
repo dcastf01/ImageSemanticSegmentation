@@ -1,6 +1,9 @@
 import datetime
 import itertools
 import io
+import tensorflow as tf
+import numpy as np
+import matplotlib.pyplot as plt
 
 log_dir = "logs/fit/" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
 def call_tensorboard(prefix_log=log_dir):
@@ -71,6 +74,7 @@ def callback_confusion_matrix(NUM_CLASSES,CLASSES_NAMES,VALIDATION_STEPS ,val_da
         return image
 
     def log_confusion_matrix(epoch,logs=None):
+        
     # print("logs",logs)
 
     # def get_mask_for_valid_labels(y_true, num_classes, ignore_value=255):
@@ -90,34 +94,34 @@ def callback_confusion_matrix(NUM_CLASSES,CLASSES_NAMES,VALIDATION_STEPS ,val_da
         def flatten_image(image):
             return tf.reshape(image,shape=image.shape[0]*image.shape[1])
 
-    for batch_image,batch_mask in val_dataset.take(VALIDATION_STEPS):
-        batch_pred_mask = model.predict(batch_image)
-        # display([batch_image[0],batch_mask[0],batch_pred_mask[0]])
-        for pred_mask,mask in zip(batch_pred_mask,batch_mask):
-    
-            pred_mask = tf.argmax(pred_mask, axis=-1)
-            pred_mask = pred_mask[..., tf.newaxis]
-            
-            # unique, counts = np.unique(tf.math.round(pred_mask), return_counts=True)
-            # print("pred_mask",dict(zip(unique, counts)))
-            
-            mask=tf.math.round(mask)
-            unique, counts = np.unique(mask, return_counts=True)
-            pred_mask=flatten_image(pred_mask)
-            mask=flatten_image(mask)
-            cm=tf.math.confusion_matrix(mask,pred_mask,NUM_CLASSES)
+        for batch_image,batch_mask in val_dataset.take(VALIDATION_STEPS):
+            batch_pred_mask = model.predict(batch_image)
+            # display([batch_image[0],batch_mask[0],batch_pred_mask[0]])
+            for pred_mask,mask in zip(batch_pred_mask,batch_mask):
+        
+                pred_mask = tf.argmax(pred_mask, axis=-1)
+                pred_mask = pred_mask[..., tf.newaxis]
+                
+                # unique, counts = np.unique(tf.math.round(pred_mask), return_counts=True)
+                # print("pred_mask",dict(zip(unique, counts)))
+                
+                mask=tf.math.round(mask)
+                unique, counts = np.unique(mask, return_counts=True)
+                pred_mask=flatten_image(pred_mask)
+                mask=flatten_image(mask)
+                cm=tf.math.confusion_matrix(mask,pred_mask,NUM_CLASSES)
         
         
     
-    figure = plot_confusion_matrix(cm.numpy(), class_names=CLASSES_NAMES)
-    cm_image = plot_to_image(figure)
-    
-    
-    # Log the confusion matrix as an image summary.
-    with file_writer_cm.as_default():
-        tf.summary.image("Confusion Matrix", cm_image, step=epoch)
+        figure = plot_confusion_matrix(cm.numpy(), class_names=CLASSES_NAMES)
+        cm_image = plot_to_image(figure)
+        
+        
+        # Log the confusion matrix as an image summary.
+        with file_writer_cm.as_default():
+            tf.summary.image("Confusion Matrix", cm_image, step=epoch)
 
-    return mask,pred_mask
+        return mask,pred_mask
 
     tensorboard_callback = tf.keras.callbacks.TensorBoard(log_dir = log_dir, histogram_freq = 1)
     file_writer_cm = tf.summary.create_file_writer(log_dir + '/cm')
