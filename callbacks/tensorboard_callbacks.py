@@ -5,8 +5,8 @@ import tensorflow as tf
 import numpy as np
 import matplotlib.pyplot as plt
 
-log_dir = "logs/fit/" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
-def call_tensorboard(prefix_log=log_dir):
+log_dir_aux = "logs/fit/" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
+def call_tensorboard(log_dir=log_dir_aux):
     log_dir = log_dir+ datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
     tensorboard_callback = tf.keras.callbacks.TensorBoard( log_dir=log_dir, histogram_freq=1, write_graph=True, write_images=False,
     update_freq='epoch', profile_batch=2, embeddings_freq=1,
@@ -14,7 +14,7 @@ def call_tensorboard(prefix_log=log_dir):
     return tensorboard_callback
 
 
-def callback_confusion_matrix(NUM_CLASSES,CLASSES_NAMES,VALIDATION_STEPS ,val_dataset,model,log_dir=log_dir):
+def callback_confusion_matrix(NUM_CLASSES,CLASSES_NAMES,VALIDATION_STEPS ,val_dataset,model,log_dir=log_dir_aux):
 
     def plot_confusion_matrix(cm, class_names):
         """
@@ -74,7 +74,7 @@ def callback_confusion_matrix(NUM_CLASSES,CLASSES_NAMES,VALIDATION_STEPS ,val_da
         return image
 
     def log_confusion_matrix(epoch,logs=None):
-        
+
     # print("logs",logs)
 
     # def get_mask_for_valid_labels(y_true, num_classes, ignore_value=255):
