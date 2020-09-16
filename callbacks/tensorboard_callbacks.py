@@ -4,8 +4,8 @@ import io
 
 log_dir = "logs/fit/" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
 def call_tensorboard(prefix_log=log_dir):
-    log_dir = "logs/fit/" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
-    tensorboard_callback = tf.keras.callbacks.TensorBoard( log_dir='logs', histogram_freq=1, write_graph=True, write_images=False,
+    log_dir = log_dir+ datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
+    tensorboard_callback = tf.keras.callbacks.TensorBoard( log_dir=log_dir, histogram_freq=1, write_graph=True, write_images=False,
     update_freq='epoch', profile_batch=2, embeddings_freq=1,
     embeddings_metadata=None)
     return tensorboard_callback
