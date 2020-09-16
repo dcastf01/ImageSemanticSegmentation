@@ -1,14 +1,15 @@
 import tensorflow as tf 
 from .prepare_data_for_loss_and_metrics import  prepare_data_for_segmentation_loss
-from loss_sparse_categorical_crossentropy import SegmentationLoss
+from .loss_sparse_categorical_crossentropy import SegmentationLoss
 
 
 
-def calculate_class_weights_log(dataset,CLASS_NAMES):
-    num_classes=len(CLASS_NAMES)
+def calculate_class_weights_log(dataset,CLASSES_NAMES,STEPS_PER_EPOCH):
+    num_classes=len(CLASSES_NAMES)
     all_pixels_per_class = tf.convert_to_tensor([0] * num_classes)
 
-    for img, mask in dataset: # Iterating over full validation set
+    for img, mask in dataset.take(STEPS_PER_EPOCH): # Iterating over full validation setÇ
+        mask=tf.cast(mask,tf.int32)
         one_hot_labels = tf.cast(tf.one_hot(tf.squeeze(mask, -1), num_classes), tf.int32)
         num_pixels_per_class = tf.reduce_sum(one_hot_labels, axis=[0, 1, 2])
         all_pixels_per_class += num_pixels_per_class
@@ -24,7 +25,7 @@ def calculate_class_weights_log(dataset,CLASS_NAMES):
     print('{}{:13} {:5}  →   {:6}  {:13}{}'.format(
         log_begin_bold, 'class', 'propor', 'weight', 'log(weight)', log_end_format))
     for label, prop, weight, weight_log in zip(
-        CLASS_NAMES, 
+        CLASSES_NAMES, 
         class_proportions.numpy(), class_weights.numpy(), class_weights_log.numpy()):
         print('{0:13} {4}{1:5.2f}%{6}  →  {5}{2:7.2f}{3:9.2f}{6}'.format(
             label.name, prop * 100, weight, weight_log,
@@ -45,7 +46,7 @@ def prepare_class_weight_map(y_true, weights):
 
 
 class WeightedSegmentationLoss(SegmentationLoss):
-    def __init__(self, weights=class_weights_log, ignore_value=255, 
+    def __init__(self, weights, ignore_value=255, 
                  from_logits=False, reduction=tf.losses.Reduction.SUM_OVER_BATCH_SIZE, name='loss'):
         super().__init__(ignore_value, from_logits, reduction, name)
         self.weights = weights
