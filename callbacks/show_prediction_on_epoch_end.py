@@ -25,7 +25,14 @@ def show_predictions(model,dataset=None,NUM_CLASSES=256, num=1):
 
 
 class DisplayCallback(tf.keras.callbacks.Callback):
+  def __init__(self,model,train_dataset,NUM_CLASSES):
+    super().__init__()
+    self.model=model
+    self.train_dataset=train_dataset
+    self.NUM_CLASSES=NUM_CLASSES
+
+
   def on_epoch_end(self, epoch, logs=None):
     clear_output(wait=True)
-    show_predictions(train_dataset)
+    show_predictions(self.model,self.train_dataset,self.NUM_CLASSES)
     print ('\nSample Prediction after epoch {}\n'.format(epoch+1))
