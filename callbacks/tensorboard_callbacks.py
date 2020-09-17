@@ -123,7 +123,8 @@ def callback_confusion_matrix(NUM_CLASSES,CLASSES_NAMES,VALIDATION_STEPS ,val_da
 
         return mask,pred_mask
 
-    tensorboard_callback = tf.keras.callbacks.TensorBoard(log_dir = log_dir, histogram_freq = 1)
     file_writer_cm = tf.summary.create_file_writer(log_dir + '/cm')
     cm_callback = tf.keras.callbacks.LambdaCallback(on_epoch_end=log_confusion_matrix)
+
+    return cm_callback
 
