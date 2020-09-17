@@ -1,5 +1,5 @@
 import tensorflow as tf 
-from .prepare_data_for_loss_and_metrics import  prepare_data_for_segmentation_loss
+from ..utils.prepare_data_for_loss_and_metrics import  prepare_data_for_segmentation_loss
 from .loss_sparse_categorical_crossentropy import SegmentationLoss
 
 
