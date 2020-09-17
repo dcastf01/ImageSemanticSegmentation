@@ -14,7 +14,7 @@ def call_tensorboard(log_dir=log_dir_aux):
     return tensorboard_callback
 
 
-def callback_confusion_matrix(NUM_CLASSES,CLASSES_NAMES,VALIDATION_STEPS ,val_dataset,model,log_dir=log_dir_aux):
+def callback_confusion_matrix(CLASSES_NAMES,VALIDATION_STEPS ,val_dataset,model,log_dir=log_dir_aux):
 
     def plot_confusion_matrix(cm, class_names):
         """
