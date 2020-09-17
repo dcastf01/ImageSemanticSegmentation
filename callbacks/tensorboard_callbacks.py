@@ -109,7 +109,7 @@ def callback_confusion_matrix(CLASSES_NAMES,VALIDATION_STEPS ,val_dataset,model,
                 unique, counts = np.unique(mask, return_counts=True)
                 pred_mask=flatten_image(pred_mask)
                 mask=flatten_image(mask)
-                cm=tf.math.confusion_matrix(mask,pred_mask,NUM_CLASSES)
+                cm=tf.math.confusion_matrix(mask,pred_mask,len(CLASSES_NAMES))
         
         
     
