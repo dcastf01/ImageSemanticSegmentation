@@ -19,7 +19,7 @@ def show_predictions(model,dataset=None,NUM_CLASSES=256, num=1):
       # unique, counts = np.unique(tf.math.round(mask[0]), return_counts=True)
       # print("mask",dict(zip(unique, counts)))
       
-      display([image[0], mask[0], create_mask(pred_mask)])
+      display([image[0], mask[0], create_mask(pred_mask)],NUM_CLASSES)
   else:
     print("please give a dataset to can show")
 
