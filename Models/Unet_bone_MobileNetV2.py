@@ -28,7 +28,7 @@ def unet_model(output_channels,input_shape=[128, 128, 3]):
       pix2pix.upsample(128, 3),  # 16x16 -> 32x32
       pix2pix.upsample(64, 3),   # 32x32 -> 64x64
   ]
-  inputs = tf.keras.layers.Input(shape=[128, 128, 3])
+  inputs = tf.keras.layers.Input(shape=input_shape)
   x = inputs
 
   # Downsampling through the model
