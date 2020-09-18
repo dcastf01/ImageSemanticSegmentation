@@ -81,15 +81,15 @@ def callback_confusion_matrix(CLASSES_NAMES,VALIDATION_STEPS ,val_dataset,model,
             batch_pred_mask = model.predict(batch_image)
             for pred_mask,mask in zip(batch_pred_mask,batch_mask):
                 
-            mask, pred_mask = prepare_data_for_segmentation_loss(mask, pred_mask,
-                                                num_classes=len(CLASSES_NAMES), 
-                                                ignore_value=IGNORE_VALUE)
+                mask, pred_mask = prepare_data_for_segmentation_loss(mask, pred_mask,
+                                                    num_classes=len(CLASSES_NAMES), 
+                                                    ignore_value=ignore_value)
 
-            pred_mask = tf.argmax(pred_mask, axis=-1)      
+                pred_mask = tf.argmax(pred_mask, axis=-1)      
 
-            mask=tf.math.round(mask)
+                mask=tf.math.round(mask)
 
-            cm=tf.math.confusion_matrix(mask,pred_mask,len(CLASSES_NAMES))
+                cm=tf.math.confusion_matrix(mask,pred_mask,len(CLASSES_NAMES))
         
     
         figure = plot_confusion_matrix(cm.numpy(), class_names=CLASSES_NAMES)
