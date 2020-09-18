@@ -1,4 +1,4 @@
-if [ ! -d "dataset" ]; then
+if [ ! -d "dataset/cityscapes" ]; then
     # Control will enter here if $DIRECTORY doesn't exist.
 
     wget --keep-session-cookies --save-cookies=cookies.txt --post-data 'username=dacasfal@upv.es&password=testeando02&submit=Login' https://www.cityscapes-dataset.com/login/
