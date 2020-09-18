@@ -5,16 +5,9 @@ Notebook to import any dataset with a real image and a mask with all the pixel i
 # Table of contents
 
 * [Introduction](#introduction)
-* [Quick reference](#quick-reference)
 * [Methodology](#methodology)
 * [Dataset](#dataset)
-* [Training](#training)
-* [Results](#results)
-* [Conclusion](#conclusion)
-* [Future work](#future-work)
-* [Acknowledgements](#acknowledgements)
-* [Contact](#contact)
-* [License](#license)
+
 
 # Introduction
 >[Table of contents](#table-of-contents)
@@ -53,5 +46,5 @@ For the time being you can use two dataset
 
 ### Cityscapes
 
-
+'''working in readme'''
 
