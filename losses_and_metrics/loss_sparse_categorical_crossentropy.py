@@ -14,6 +14,10 @@ class SegmentationLoss(tf.losses.SparseCategoricalCrossentropy):
       y_true, y_pred = prepare_data_for_segmentation_loss(y_true, y_pred,
                                                           num_classes=num_classes, 
                                                           ignore_value=self.ignore_value)
+      unique, counts = np.unique(tf.math.round(y_true), return_counts=True)
+      print("y_true",dict(zip(unique, counts)))
+      unique, counts = np.unique(tf.math.round(y_pred), return_counts=True)
+      print("y_pred",dict(zip(unique, counts)))
       return y_true, y_pred
 
   def __call__(self, y_true, y_pred, sample_weight=None):
