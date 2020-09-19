@@ -149,7 +149,7 @@ def unet(x, out_channels=3, layer_depth=4, filters_orig=32, kernel_size=4,activa
 def unet_model(IMAGE_SIZE,INPUT_CHANNELS,out_channels, 
             layer_depth, filters_orig, 
             kernel_size, batch_norm,
-            final_activation="softmax"):
+            final_activation=None):
 
     inputs = Input(shape=(*IMAGE_SIZE, INPUT_CHANNELS), name='input')
     outputs = unet(inputs, out_channels=out_channels, 
