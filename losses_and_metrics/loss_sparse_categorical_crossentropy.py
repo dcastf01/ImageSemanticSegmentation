@@ -1,4 +1,6 @@
 import tensorflow as tf
+import numpy as np
+
 from ..utils.prepare_data_for_loss_and_metrics import prepare_data_for_segmentation_loss
 
 class SegmentationLoss(tf.losses.SparseCategoricalCrossentropy):
