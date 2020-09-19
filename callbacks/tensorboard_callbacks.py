@@ -10,8 +10,8 @@ from ..utils.prepare_data_for_loss_and_metrics import  prepare_data_for_segmenta
 log_dir_aux = "logs/fit/" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
 def call_tensorboard(log_dir=log_dir_aux):
     log_dir = log_dir+ datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
-    tensorboard_callback = tf.keras.callbacks.TensorBoard( log_dir=log_dir, histogram_freq=1, write_graph=True, write_images=False,
-    update_freq='epoch', profile_batch=2, embeddings_freq=1,
+    tensorboard_callback = tf.keras.callbacks.TensorBoard( log_dir=log_dir, histogram_freq=0, write_graph=True, write_images=False,
+    update_freq='epoch', profile_batch=2, embeddings_freq=0,
     embeddings_metadata=None)
     return tensorboard_callback
 
