@@ -1,9 +1,9 @@
 import tensorflow as tf
 
 class create_dataset():
-    def __init__(dataset_train,dataset_test,dataset_validation,AUGMENTATION:bool,IMAGE_SIZE:tuple,PERCENT_INCREMENTED_IN_JITTER:float):
+    def __init__(dataset_train,dataset_test,dataset_validation,IMAGE_SIZE:tuple,PERCENT_INCREMENTED_IN_JITTER:float):
         
-        self.AUGMENTATION=AUGMENTATION
+      
         self.IMAGE_SIZE=IMAGE_SIZE
         self.PERCENT_INCREMENTED_IN_JITTER=PERCENT_INCREMENTED_IN_JITTER
         self.train=dataset_train.map(self.load_train_image, num_parallel_calls=tf.data.experimental.AUTOTUNE)
@@ -21,11 +21,11 @@ class create_dataset():
 
     def normalize(self,inimg,tgimg):
         
-    inimg=(inimg/255)
-    if Which_dataset=='oxford_iiit_pet':
-        tgimg -= 1  
+        inimg=(inimg/255)
+        if Which_dataset=='oxford_iiit_pet':
+            tgimg -= 1  
 
-    return inimg,tgimg
+        return inimg,tgimg
 
     def random_jitter(self,inimg,tgimg,heigth,width):
 
@@ -65,7 +65,7 @@ class create_dataset():
         tgimg = tf.image.resize(tgimg, original_shape, method=tf.image.ResizeMethod.NEAREST_NEIGHBOR)
         return inimg,tgimg
 
-    def load_image(self,datapoint,augment=self.AUGMENTATION):
+    def load_image(self,datapoint,augment):
     
         input_image=datapoint['image']
         target_mask=datapoint['segmentation_mask']
