@@ -7,7 +7,8 @@ class create_dataset():
         self.train=dataset_train.map(self.load_train_image, num_parallel_calls=tf.data.experimental.AUTOTUNE)
         self.test=dataset_test.map(self.load_test_image,num_parallel_calls=tf.data.experimental.AUTOTUNE)
         self.validation=dataset_validation.map(self.load_test_image,num_parallel_calls=tf.data.experimental.AUTOTUNE)
-        self.IMAGE_SIZE=IMAGE_SIZE
+        self.heigth=IMAGE_SIZE[0]
+        self.width=IMAGE_SIZE[1]
         self.PERCENT_INCREMENTED_IN_JITTER=PERCENT_INCREMENTED_IN_JITTER
         self.PROBABLITY_THRESHOLD=PROBABLITY_THRESHOLD
         self.Which_dataset=Which_dataset
@@ -70,10 +71,10 @@ class create_dataset():
         input_image=datapoint['image']
         target_mask=datapoint['segmentation_mask']
             
-        input_image,target_mask = self.resize(input_image,target_mask,self.IMAGE_SIZE[0],self.IMAGE_SIZE[1])
+        input_image,target_mask = self.resize(input_image,target_mask,self.heigth,self.width)
         
         if augment:
-            input_image,target_mask=self.random_jitter(input_image,target_mask,self.IMAGE_SIZE[0],self.IMAGE_SIZE[1])
+            input_image,target_mask=self.random_jitter(input_image,target_mask,self.heigth,self.width)
             
         input_image, target_mask = self.normalize(input_image, target_mask)
 
