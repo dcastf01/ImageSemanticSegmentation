@@ -2,14 +2,14 @@ import tensorflow as tf
 
 class create_dataset():
     def __init__(self,dataset_train,dataset_test,dataset_validation,Which_dataset,
-                IMAGE_SIZE:tuple,PERCENT_INCREMENTED_IN_JITTER:float,PROBABLITY_THRESHOLD:float):
+                IMAGE_SIZE:tuple,PERCENT_INCREMENTED_IN_jitter:float,PROBABLITY_THRESHOLD:float):
         
         self.train=dataset_train.map(self.load_train_image, num_parallel_calls=tf.data.experimental.AUTOTUNE)
         self.test=dataset_test.map(self.load_test_image,num_parallel_calls=tf.data.experimental.AUTOTUNE)
         self.validation=dataset_validation.map(self.load_test_image,num_parallel_calls=tf.data.experimental.AUTOTUNE)
         self.heigth=IMAGE_SIZE[0]
         self.width=IMAGE_SIZE[1]
-        self.PERCENT_INCREMENTED_IN_JITTER=PERCENT_INCREMENTED_IN_JITTER
+        self.PERCENT_INCREMENTED_IN_JITTER=PERCENT_INCREMENTED_IN_jitter
         self.PROBABLITY_THRESHOLD=PROBABLITY_THRESHOLD
         self.Which_dataset=Which_dataset
 
