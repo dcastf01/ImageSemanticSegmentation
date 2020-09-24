@@ -1,15 +1,15 @@
 import tensorflow as tf
 
 class create_dataset():
-    def __init__(self,dataset_train,dataset_test,dataset_validation,IMAGE_SIZE:tuple,PERCENT_INCREMENTED_IN_JITTER:float):
+    def __init__(self,dataset_train,dataset_test,dataset_validation,
+                IMAGE_SIZE:tuple,PERCENT_INCREMENTED_IN_JITTER:float,PROBABLITY_THRESHOLD:float):
         
-      
-        self.IMAGE_SIZE=IMAGE_SIZE
-        self.PERCENT_INCREMENTED_IN_JITTER=PERCENT_INCREMENTED_IN_JITTER
         self.train=dataset_train.map(self.load_train_image, num_parallel_calls=tf.data.experimental.AUTOTUNE)
         self.test=dataset_test.map(self.load_test_image,num_parallel_calls=tf.data.experimental.AUTOTUNE)
         self.validation=dataset_validation.map(self.load_test_image,num_parallel_calls=tf.data.experimental.AUTOTUNE)
-        
+        self.IMAGE_SIZE=IMAGE_SIZE
+        self.PERCENT_INCREMENTED_IN_JITTER=PERCENT_INCREMENTED_IN_JITTER
+        self.PROBABLITY_THRESHOLD=PROBABLITY_THRESHOLD
 
 
     def resize(self,inimg,tgimg,heigth,width):
@@ -45,7 +45,7 @@ class create_dataset():
 
         stacked_image = tf.image.random_crop(stacked_image, size=[heigth,width,num_stacked_channels])
         
-        if tf.random.uniform(()) > PROBABLITY_THRESHOLD :
+        if tf.random.uniform(()) > self.PROBABLITY_THRESHOLD :
         
             stacked_image = tf.image.flip_left_right(stacked_image)
         
