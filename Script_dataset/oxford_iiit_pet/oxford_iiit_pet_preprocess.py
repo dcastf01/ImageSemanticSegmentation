@@ -1,7 +1,7 @@
 import tensorflow as tf
 
 class create_dataset():
-    def __init__(dataset_train,dataset_test,dataset_validation,IMAGE_SIZE:tuple,PERCENT_INCREMENTED_IN_JITTER:float):
+    def __init__(self,dataset_train,dataset_test,dataset_validation,IMAGE_SIZE:tuple,PERCENT_INCREMENTED_IN_JITTER:float):
         
       
         self.IMAGE_SIZE=IMAGE_SIZE
