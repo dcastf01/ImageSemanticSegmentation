@@ -27,7 +27,7 @@ def callback_confusion_matrix(CLASSES_NAMES,VALIDATION_STEPS ,val_dataset,model,
         class_names (array, shape = [n]): String names of the integer classes
         """
         
-        figure = plt.figure(figsize=(30, 30))
+        figure = plt.figure(figsize=(20, 20))
         plt.imshow(cm, interpolation='nearest', cmap=plt.cm.Blues)
         plt.title("Confusion matrix")
         plt.colorbar()
@@ -43,7 +43,7 @@ def callback_confusion_matrix(CLASSES_NAMES,VALIDATION_STEPS ,val_dataset,model,
         
         for i, j in itertools.product(range(cm.shape[0]), range(cm.shape[1])):
             color = "white" if cm[i, j] > threshold else "black"
-            plt.text(j, i, cm[i, j], horizontalalignment="center", color=color)
+            plt.text(j, i, cm[i, j], horizontalalignment="center", color=color,fontsize="medium")
             
         # plt.tight_layout()
         plt.ylabel('True label')
