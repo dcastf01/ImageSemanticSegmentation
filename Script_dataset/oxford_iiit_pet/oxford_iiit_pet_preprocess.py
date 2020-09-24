@@ -70,11 +70,11 @@ class create_dataset():
     
         input_image=datapoint['image']
         target_mask=datapoint['segmentation_mask']
-            
-        input_image,target_mask = self.resize(input_image,target_mask,self.heigth,self.width)
+        heigth,width=self.heigth,self.width
+        input_image,target_mask = self.resize(input_image,target_mask,heigth,width)
         
         if augment:
-            input_image,target_mask=self.random_jitter(input_image,target_mask,self.heigth,self.width)
+            input_image,target_mask=self.random_jitter(input_image,target_mask,heigth,width)
             
         input_image, target_mask = self.normalize(input_image, target_mask)
 
